@@ -14,7 +14,7 @@ content = request.json()
 
 # Access the article title and descriptions
 body = ''
-for article in content['articles']:
+for article in content['articles'][:10]:
     title = article.get('title', 'No Title')
     description = article.get('description', 'No Description')
 
@@ -25,7 +25,8 @@ for article in content['articles']:
 
     # Skip articles with None in title or description
     if title is not None and description is not None:
-        body += title + '\n' + description + 2*'\n'
+        body += title + '\n' + description + '\n' \
+                + article['url'] + 2*'\n'
 
-subject = "Daily Sports News"
+subject = "Today's Sports News"
 send_email(subject, body)
